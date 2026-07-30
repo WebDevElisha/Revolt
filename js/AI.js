@@ -16,9 +16,10 @@ function appendMessage(text, type) {
     msgDiv.appendChild(p);
     chatHistory.appendChild(msgDiv);
     chatHistory.scrollTop = chatHistory.scrollHeight;
+    return msgDiv;
 }
 
-inputForm.addEventListener('submit', (e) => {
+inputForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const text = userInput.value.trim();
     if (!text) return;
@@ -26,9 +27,27 @@ inputForm.addEventListener('submit', (e) => {
     appendMessage(text, 'user-msg');
     userInput.value = '';
 
-    setTimeout(() => {
-        appendMessage('API key not configured yet.', 'ai-msg');
-    }, 500);
+    const loadingMsg = appendMessage('Thinking...', 'ai-msg');
+
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: text })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            loadingMsg.querySelector('p').textContent = data.reply;
+        } else {
+            loadingMsg.querySelector('p').textContent = `Error: ${data.error || 'Failed to fetch response.'}`;
+        }
+    } catch (err) {
+        loadingMsg.querySelector('p').textContent = 'API key not configured yet.';
+    }
 });
 
 btnNewChat.addEventListener('click', () => {

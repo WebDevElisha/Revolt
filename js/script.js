@@ -35,9 +35,12 @@ sidebarClose.addEventListener('click', () => {
 
 const tabBar = document.getElementById('tab-bar');
 const homeView = document.getElementById('home-view');
+const viewportFrame = document.getElementById('viewport-frame');
 const viewport = document.getElementById('viewport');
+const viewportTitle = document.getElementById('viewport-title');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
+const vpBtnClose = document.getElementById('vp-btn-close');
 
 let tabCounter = 1;
 let activeTabId = 'tab-1';
@@ -49,16 +52,18 @@ function renderView() {
     const current = tabData[activeTabId];
     if (current && current.url) {
         homeView.classList.add('hidden');
-        viewport.classList.remove('hidden');
+        viewportFrame.classList.remove('hidden');
         if (viewport.src !== current.url) {
             viewport.src = current.url;
         }
         searchInput.value = current.url;
+        viewportTitle.textContent = current.url;
     } else {
-        viewport.classList.add('hidden');
+        viewportFrame.classList.add('hidden');
         homeView.classList.remove('hidden');
         viewport.src = 'about:blank';
         searchInput.value = '';
+        viewportTitle.textContent = 'Revolt Viewport';
     }
 }
 
@@ -163,6 +168,13 @@ document.querySelectorAll('.app-item').forEach(item => {
         const url = item.dataset.url || 'https://duckduckgo.com';
         loadUrlInActiveTab(url);
     });
+});
+
+vpBtnClose.addEventListener('click', () => {
+    if (activeTabId) {
+        tabData[activeTabId].url = '';
+        renderView();
+    }
 });
 
 document.getElementById('btn-home').addEventListener('click', () => {

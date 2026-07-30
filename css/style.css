@@ -244,17 +244,84 @@ body {
     gap: 60px;
 }
 
-.home-view.hidden, .viewport.hidden {
+.home-view.hidden, .viewport-frame.hidden {
     display: none !important;
 }
 
-.viewport {
+.viewport-frame {
     width: 100%;
     height: 100%;
     border: 2px solid #ff0000;
     border-radius: 20px;
+    background-color: #0d0d0d;
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.viewport-header {
+    height: 42px;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: relative;
+}
+
+.viewport-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+}
+
+.vp-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.vp-btn:hover {
+    transform: scale(1.15);
+}
+
+.vp-btn.close {
+    background-color: #ff0000;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+}
+
+.vp-btn.minimize {
+    background-color: #ffaa00;
+}
+
+.vp-btn.maximize {
+    background-color: #222222;
+    border: 1px solid #ff0000;
+}
+
+.viewport-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #888888;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.viewport {
+    flex: 1;
+    width: 100%;
+    border: none;
     background-color: #ffffff;
-    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
 }
 
 .time-display {

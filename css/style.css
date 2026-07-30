@@ -226,10 +226,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 95%;
-    max-width: 1200px;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    width: 100%;
+    margin-top: 10px;
     position: relative;
     overflow: hidden;
 }
@@ -251,19 +249,19 @@ body {
 .viewport-frame {
     width: 100%;
     height: 100%;
-    border: 2px solid #ff0000;
-    border-radius: 20px;
+    border: none;
+    border-top: 2px solid #ff0000;
+    border-radius: 0;
     background-color: #0d0d0d;
-    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
 .viewport-header {
-    height: 42px;
+    height: 38px;
     background-color: #1a1a1a;
-    border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 0, 0, 0.3);
     display: flex;
     align-items: center;
     padding: 0 16px;

@@ -162,7 +162,7 @@ document.querySelectorAll('.app-item').forEach(item => {
     item.addEventListener('click', () => {
         const appName = item.querySelector('.app-name').textContent.trim();
         if (appName === 'AI') {
-            loadUrlInActiveTab('AI.html');
+            loadUrlInActiveTab('html/AI.html');
         }
     });
 });

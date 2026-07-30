@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revolt AI</title>
+    <link rel="stylesheet" href="css/AI.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="ai-container">
+        <main class="chat-section">
+            <div id="chat-history" class="chat-history">
+                <div class="message system-msg">
+                    <p>Revolt AI initialized. How can I assist you today?</p>
+                </div>
+            </div>
+
+            <form id="ai-input-form" class="ai-input-container">
+                <input type="text" id="ai-user-input" class="ai-input" placeholder="Type a message..." autocomplete="off" required>
+                <button type="submit" class="ai-send-btn">&gt;</button>
+            </form>
+        </main>
+
+        <aside class="chats-panel">
+            <div class="panel-header">
+                <span class="panel-title">Saved Chats</span>
+                <button id="btn-new-chat" class="new-chat-btn">
+                    <i data-lucide="plus"></i>
+                </button>
+            </div>
+            <div id="saved-chats-list" class="saved-chats-list">
+                <div class="chat-item active">
+                    <i data-lucide="message-square"></i>
+                    <span class="chat-item-title">Current Chat</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="javascript/AI.js"></script>
+</body>
+</html>

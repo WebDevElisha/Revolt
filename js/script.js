@@ -1,5 +1,6 @@
 lucide.createIcons();
 
+// --- Clock Logic ---
 function updateTime() {
     const clockElement = document.getElementById('clock');
     const now = new Date();
@@ -19,10 +20,10 @@ function updateTime() {
     const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
     clockElement.textContent = timeString;
 }
-
 setInterval(updateTime, 1000);
 updateTime();
 
+// --- Sidebar Logic ---
 const sidebarToggle = document.getElementById('sidebar-toggle');
 const sidebarClose = document.getElementById('sidebar-close');
 const sidebar = document.getElementById('sidebar');
@@ -30,21 +31,97 @@ const sidebar = document.getElementById('sidebar');
 sidebarToggle.addEventListener('click', () => {
     sidebar.classList.add('active');
 });
-
 sidebarClose.addEventListener('click', () => {
     sidebar.classList.remove('active');
 });
 
+// --- Tab System Logic ---
+const tabBar = document.getElementById('tab-bar');
+let tabCounter = 1;
+let activeTabId = 'tab-1';
+
+function setActiveTab(tabId) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const tab = document.querySelector(`.tab[data-id="${tabId}"]`);
+    if (tab) {
+        tab.classList.add('active');
+        activeTabId = tabId;
+    } else {
+        activeTabId = null;
+    }
+}
+
+function closeTab(tabId) {
+    const tab = document.querySelector(`.tab[data-id="${tabId}"]`);
+    if (!tab) return;
+
+    if (tab.classList.contains('active')) {
+        const nextTab = tab.nextElementSibling;
+        const prevTab = tab.previousElementSibling;
+        
+        if (nextTab) {
+            setActiveTab(nextTab.dataset.id);
+        } else if (prevTab) {
+            setActiveTab(prevTab.dataset.id);
+        } else {
+            activeTabId = null;
+        }
+    }
+    tab.remove();
+}
+
+function createTab() {
+    tabCounter++;
+    const tabId = `tab-${Date.now()}`;
+    
+    const tabEl = document.createElement('div');
+    tabEl.className = 'tab';
+    tabEl.dataset.id = tabId;
+    
+    const titleEl = document.createElement('span');
+    titleEl.className = 'tab-title';
+    titleEl.textContent = `RT${tabCounter}`;
+    
+    const closeIcon = document.createElement('i');
+    closeIcon.setAttribute('data-lucide', 'x');
+    closeIcon.className = 'tab-close';
+    
+    tabEl.appendChild(titleEl);
+    tabEl.appendChild(closeIcon);
+    tabBar.appendChild(tabEl);
+    
+    lucide.createIcons({ root: tabEl });
+    setActiveTab(tabId);
+}
+
+// Event delegation for tab clicks (handles both active selection and closing)
+tabBar.addEventListener('click', (e) => {
+    const tabEl = e.target.closest('.tab');
+    if (!tabEl) return;
+    
+    const closeBtn = e.target.closest('.tab-close');
+    if (closeBtn) {
+        closeTab(tabEl.dataset.id);
+    } else {
+        setActiveTab(tabEl.dataset.id);
+    }
+});
+
+// --- Sidebar Menu Actions ---
 document.getElementById('btn-home').addEventListener('click', () => {
     window.location.href = window.location.pathname;
 });
 
 document.getElementById('btn-new-tab').addEventListener('click', () => {
-    window.open(window.location.href, '_blank');
+    createTab();
+    sidebar.classList.remove('active');
 });
 
 document.getElementById('btn-close-tab').addEventListener('click', () => {
-    window.close();
+    if (activeTabId) {
+        closeTab(activeTabId);
+    }
+    sidebar.classList.remove('active');
 });
 
 document.getElementById('btn-fullscreen').addEventListener('click', () => {
@@ -55,12 +132,14 @@ document.getElementById('btn-fullscreen').addEventListener('click', () => {
             document.exitFullscreen();
         }
     }
+    sidebar.classList.remove('active');
 });
 
 document.getElementById('btn-reload').addEventListener('click', () => {
     window.location.reload();
 });
 
+// --- Particles Configuration ---
 particlesJS("particles-js", {
   "particles": {
     "number": {

@@ -43,6 +43,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    width: 15%;
 }
 
 .logo-box {
@@ -73,25 +74,34 @@ body {
 .search-container {
     display: flex;
     align-items: center;
-    gap: 15px;
-    width: 55%;
+    gap: 10px;
+    width: 70%;
+    background-color: transparent;
+    border: 2px solid #ff0000;
+    border-radius: 12px;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+.search-prefix {
+    color: #888888;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding-left: 5px;
 }
 
 .search-bar {
     flex: 1;
     background-color: transparent;
-    border: 2px solid #ff0000;
-    border-radius: 12px;
-    padding: 15px 20px;
+    border: none;
     font-size: 1.1rem;
     color: #ff0000;
     outline: none;
-    transition: all 0.3s ease;
-}
-
-.search-bar:focus {
-    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
-    transform: translateY(-1px);
 }
 
 .search-bar::placeholder {
@@ -102,10 +112,10 @@ body {
 .search-btn {
     background-color: transparent;
     border: 2px solid #ff0000;
-    border-radius: 12px;
+    border-radius: 8px;
     color: #ff0000;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
@@ -116,8 +126,7 @@ body {
 }
 
 .search-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
 }
 
 .header-square-btn {
@@ -135,7 +144,6 @@ body {
 }
 
 .header-square-btn:hover {
-    transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
 }
 
@@ -171,6 +179,24 @@ body {
     gap: 15px;
 }
 
+@keyframes floatUpDown {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+.floating-btn {
+    animation: floatUpDown 4s ease-in-out infinite;
+}
+
+.app-item:nth-child(odd) .floating-btn {
+    animation-delay: 0.5s;
+}
+
+.app-item:nth-child(even) .floating-btn {
+    animation-delay: 1.5s;
+}
+
 .app-icon {
     width: 85px;
     height: 85px;
@@ -182,11 +208,10 @@ body {
     align-items: center;
     color: #ff0000;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 .app-icon:hover {
-    transform: translateY(-6px);
     box-shadow: 0 12px 25px rgba(255, 0, 0, 0.5);
 }
 

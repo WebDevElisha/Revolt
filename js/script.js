@@ -24,10 +24,41 @@ setInterval(updateTime, 1000);
 updateTime();
 
 const sidebarToggle = document.getElementById('sidebar-toggle');
+const sidebarClose = document.getElementById('sidebar-close');
 const sidebar = document.getElementById('sidebar');
 
 sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
+    sidebar.classList.add('active');
+});
+
+sidebarClose.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+});
+
+document.getElementById('btn-home').addEventListener('click', () => {
+    window.location.href = window.location.pathname;
+});
+
+document.getElementById('btn-new-tab').addEventListener('click', () => {
+    window.open(window.location.href, '_blank');
+});
+
+document.getElementById('btn-close-tab').addEventListener('click', () => {
+    window.close();
+});
+
+document.getElementById('btn-fullscreen').addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+});
+
+document.getElementById('btn-reload').addEventListener('click', () => {
+    window.location.reload();
 });
 
 particlesJS("particles-js", {

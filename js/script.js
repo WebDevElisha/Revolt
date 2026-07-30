@@ -137,7 +137,7 @@ function loadUrlInActiveTab(targetUrl) {
     let finalUrl = targetUrl.trim();
     if (!finalUrl) return;
 
-    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://') && !finalUrl.endsWith('.html')) {
         if (finalUrl.includes('.') && !finalUrl.includes(' ')) {
             finalUrl = 'https://' + finalUrl;
         } else {
@@ -160,6 +160,10 @@ searchForm.addEventListener('submit', (e) => {
 
 document.querySelectorAll('.app-item').forEach(item => {
     item.addEventListener('click', () => {
+        const appName = item.querySelector('.app-name').textContent.trim();
+        if (appName === 'AI') {
+            loadUrlInActiveTab('AI.html');
+        }
     });
 });
 

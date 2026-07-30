@@ -1,6 +1,5 @@
 lucide.createIcons();
 
-// --- Clock Logic ---
 function updateTime() {
     const clockElement = document.getElementById('clock');
     const now = new Date();
@@ -23,7 +22,6 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-// --- Sidebar Logic ---
 const sidebarToggle = document.getElementById('sidebar-toggle');
 const sidebarClose = document.getElementById('sidebar-close');
 const sidebar = document.getElementById('sidebar');
@@ -35,7 +33,6 @@ sidebarClose.addEventListener('click', () => {
     sidebar.classList.remove('active');
 });
 
-// --- Tab System Logic ---
 const tabBar = document.getElementById('tab-bar');
 let tabCounter = 1;
 let activeTabId = 'tab-1';
@@ -94,7 +91,6 @@ function createTab() {
     setActiveTab(tabId);
 }
 
-// Event delegation for tab clicks (handles both active selection and closing)
 tabBar.addEventListener('click', (e) => {
     const tabEl = e.target.closest('.tab');
     if (!tabEl) return;
@@ -107,7 +103,6 @@ tabBar.addEventListener('click', (e) => {
     }
 });
 
-// --- Sidebar Menu Actions ---
 document.getElementById('btn-home').addEventListener('click', () => {
     window.location.href = window.location.pathname;
 });
@@ -139,7 +134,6 @@ document.getElementById('btn-reload').addEventListener('click', () => {
     window.location.reload();
 });
 
-// --- Particles Configuration ---
 particlesJS("particles-js", {
   "particles": {
     "number": {

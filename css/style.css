@@ -15,12 +15,22 @@ body {
     align-items: center;
 }
 
+#particles-js {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
 .floating-header {
     width: 95%;
     max-width: 1200px;
     margin-top: 20px;
     padding: 15px 25px;
-    background-color: #050000;
+    background-color: transparent;
+    border: 2px solid #ff0000;
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
@@ -38,13 +48,13 @@ body {
 .logo-box {
     width: 40px;
     height: 40px;
+    border: 2px solid #ff0000;
     border-radius: 10px;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #050000;
-    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.2);
+    background-color: transparent;
 }
 
 .logo {
@@ -69,14 +79,13 @@ body {
 
 .search-bar {
     flex: 1;
-    background-color: #050000;
-    border: none;
+    background-color: transparent;
+    border: 2px solid #ff0000;
     border-radius: 12px;
     padding: 15px 20px;
     font-size: 1.1rem;
     color: #ff0000;
     outline: none;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 
@@ -91,8 +100,8 @@ body {
 }
 
 .search-btn {
-    background-color: #050000;
-    border: none;
+    background-color: transparent;
+    border: 2px solid #ff0000;
     border-radius: 12px;
     color: #ff0000;
     width: 50px;
@@ -103,7 +112,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -113,8 +121,8 @@ body {
 }
 
 .header-square-btn {
-    background-color: #050000;
-    border: none;
+    background-color: transparent;
+    border: 2px solid #ff0000;
     border-radius: 12px;
     color: #ff0000;
     width: 50px;
@@ -123,7 +131,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -167,13 +174,12 @@ body {
 .app-icon {
     width: 85px;
     height: 85px;
-    background-color: #050000;
-    border: none;
+    background-color: transparent;
+    border: 2px solid #ff0000;
     border-radius: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.2);
     color: #ff0000;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -203,6 +209,7 @@ body {
     width: 250px;
     height: 100vh;
     background-color: #000000;
+    border-left: 2px solid #ffffff; 
     box-shadow: -10px 0 30px rgba(255, 0, 0, 0.1);
     transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
@@ -217,15 +224,14 @@ body {
 }
 
 .sidebar-item {
-    background-color: #050000;
-    border: none;
+    background-color: transparent;
+    border: 2px solid #ff0000;
     border-radius: 12px;
     padding: 18px;
     color: #ff0000;
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 

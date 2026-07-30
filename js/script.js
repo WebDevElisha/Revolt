@@ -34,8 +34,33 @@ sidebarClose.addEventListener('click', () => {
 });
 
 const tabBar = document.getElementById('tab-bar');
+const homeView = document.getElementById('home-view');
+const viewport = document.getElementById('viewport');
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+
 let tabCounter = 1;
 let activeTabId = 'tab-1';
+const tabData = {
+    'tab-1': { url: '' }
+};
+
+function renderView() {
+    const current = tabData[activeTabId];
+    if (current && current.url) {
+        homeView.classList.add('hidden');
+        viewport.classList.remove('hidden');
+        if (viewport.src !== current.url) {
+            viewport.src = current.url;
+        }
+        searchInput.value = current.url;
+    } else {
+        viewport.classList.add('hidden');
+        homeView.classList.remove('hidden');
+        viewport.src = 'about:blank';
+        searchInput.value = '';
+    }
+}
 
 function setActiveTab(tabId) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -46,11 +71,14 @@ function setActiveTab(tabId) {
     } else {
         activeTabId = null;
     }
+    renderView();
 }
 
 function closeTab(tabId) {
     const tab = document.querySelector(`.tab[data-id="${tabId}"]`);
     if (!tab) return;
+
+    delete tabData[tabId];
 
     if (tab.classList.contains('active')) {
         const nextTab = tab.nextElementSibling;
@@ -62,14 +90,16 @@ function closeTab(tabId) {
             setActiveTab(prevTab.dataset.id);
         } else {
             activeTabId = null;
+            renderView();
         }
     }
     tab.remove();
 }
 
-function createTab() {
+function createTab(url = '') {
     tabCounter++;
     const tabId = `tab-${Date.now()}`;
+    tabData[tabId] = { url };
     
     const tabEl = document.createElement('div');
     tabEl.className = 'tab';
@@ -103,12 +133,48 @@ tabBar.addEventListener('click', (e) => {
     }
 });
 
+function loadUrlInActiveTab(targetUrl) {
+    let finalUrl = targetUrl.trim();
+    if (!finalUrl) return;
+
+    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+        if (finalUrl.includes('.') && !finalUrl.includes(' ')) {
+            finalUrl = 'https://' + finalUrl;
+        } else {
+            finalUrl = 'https://duckduckgo.com/?q=' + encodeURIComponent(finalUrl);
+        }
+    }
+
+    if (!activeTabId) {
+        createTab(finalUrl);
+    } else {
+        tabData[activeTabId].url = finalUrl;
+        renderView();
+    }
+}
+
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    loadUrlInActiveTab(searchInput.value);
+});
+
+document.querySelectorAll('.app-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const url = item.dataset.url || 'https://duckduckgo.com';
+        loadUrlInActiveTab(url);
+    });
+});
+
 document.getElementById('btn-home').addEventListener('click', () => {
-    window.location.href = window.location.pathname;
+    if (activeTabId) {
+        tabData[activeTabId].url = '';
+        renderView();
+    }
+    sidebar.classList.remove('active');
 });
 
 document.getElementById('btn-new-tab').addEventListener('click', () => {
-    createTab();
+    createTab('');
     sidebar.classList.remove('active');
 });
 
@@ -131,7 +197,12 @@ document.getElementById('btn-fullscreen').addEventListener('click', () => {
 });
 
 document.getElementById('btn-reload').addEventListener('click', () => {
-    window.location.reload();
+    if (activeTabId && tabData[activeTabId].url) {
+        viewport.src = tabData[activeTabId].url;
+    } else {
+        window.location.reload();
+    }
+    sidebar.classList.remove('active');
 });
 
 particlesJS("particles-js", {

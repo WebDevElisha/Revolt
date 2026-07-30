@@ -160,8 +160,6 @@ searchForm.addEventListener('submit', (e) => {
 
 document.querySelectorAll('.app-item').forEach(item => {
     item.addEventListener('click', () => {
-        const url = item.dataset.url || 'https://duckduckgo.com';
-        loadUrlInActiveTab(url);
     });
 });
 

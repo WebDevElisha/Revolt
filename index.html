@@ -11,68 +11,72 @@
 <body>
     <div id="particles-js"></div>
 
-    <header class="floating-header">
-        <div class="header-left">
-            <div class="logo-box">
+    <div class="app-layout">
+        <aside class="left-sidebar">
+            <div class="sidebar-logo">
                 <img src="Revolt.png" alt="Logo" class="logo">
             </div>
-            <h1 class="header-title">Revolt</h1>
-        </div>
-        
-        <form id="search-form" class="search-container">
-            <span class="search-prefix">Revolt://</span>
-            <input type="text" id="search-input" name="q" class="search-bar" placeholder="Search or enter URL..." autocomplete="off">
-            <button type="submit" class="search-btn">&gt;</button>
-        </form>
 
-        <button id="sidebar-toggle" class="header-square-btn">
-            <i data-lucide="menu"></i>
-        </button>
-    </header>
+            <nav class="sidebar-nav">
+                <button class="nav-btn" id="nav-ai" title="AI">
+                    <i data-lucide="cpu"></i>
+                </button>
+                <button class="nav-btn" id="nav-chat" title="Chat">
+                    <i data-lucide="message-square"></i>
+                </button>
+                <button class="nav-btn" id="nav-games" title="Games">
+                    <i data-lucide="gamepad-2"></i>
+                </button>
+                <button class="nav-btn" id="nav-apps" title="Apps">
+                    <i data-lucide="layout-grid"></i>
+                </button>
+                <button class="nav-btn" id="nav-watch" title="Watch">
+                    <i data-lucide="monitor-play"></i>
+                </button>
+                <button class="nav-btn" id="nav-music" title="Music">
+                    <i data-lucide="music"></i>
+                </button>
+            </nav>
 
-    <div class="tab-bar-container">
-        <div id="tab-bar" class="tab-bar">
-            <div class="tab active" data-id="tab-1">
-                <span class="tab-title">RT1</span>
-                <i data-lucide="x" class="tab-close"></i>
+            <div class="sidebar-footer">
+                <button class="nav-btn" id="sidebar-toggle" title="Menu">
+                    <i data-lucide="menu"></i>
+                </button>
             </div>
+        </aside>
+
+        <div class="main-container">
+            <div class="tab-bar-container">
+                <div id="tab-bar" class="tab-bar">
+                    <div class="tab active" data-id="tab-1">
+                        <span class="tab-title">RT1</span>
+                        <i data-lucide="x" class="tab-close"></i>
+                    </div>
+                </div>
+                <button id="add-tab-btn" class="add-tab-btn" title="New Tab">
+                    <i data-lucide="plus"></i>
+                </button>
+            </div>
+
+            <main class="content-wrapper">
+                <div id="home-view" class="home-view">
+                    <div class="revolt-brand">
+                        <span class="brand-big-r">R</span><span class="brand-rest">evolt</span>
+                    </div>
+
+                    <form id="search-form" class="search-container">
+                        <span class="search-prefix">Revolt://</span>
+                        <input type="text" id="search-input" name="q" class="search-bar" placeholder="Search DuckDuckGo or type URL..." autocomplete="off">
+                        <button type="submit" class="search-btn">&gt;</button>
+                    </form>
+
+                    <div id="clock" class="time-display">00:00:00 AM</div>
+                </div>
+
+                <iframe id="viewport" class="viewport hidden" src="about:blank"></iframe>
+            </main>
         </div>
     </div>
-
-    <main class="content-wrapper">
-        <div id="home-view" class="home-view">
-            <div id="clock" class="time-display">00:00:00 AM</div>
-
-            <div class="app-grid">
-                <div class="app-item">
-                    <div class="app-icon floating-btn"><i data-lucide="cpu"></i></div>
-                    <span class="app-name">AI</span>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon floating-btn"><i data-lucide="message-square"></i></div>
-                    <span class="app-name">Chat</span>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon floating-btn"><i data-lucide="gamepad-2"></i></div>
-                    <span class="app-name">Games</span>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon floating-btn"><i data-lucide="layout-grid"></i></div>
-                    <span class="app-name">Apps</span>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon floating-btn"><i data-lucide="monitor-play"></i></div>
-                    <span class="app-name">Watch</span>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon floating-btn"><i data-lucide="settings"></i></div>
-                    <span class="app-name">Settings</span>
-                </div>
-            </div>
-        </div>
-
-        <iframe id="viewport" class="viewport hidden" src="about:blank"></iframe>
-    </main>
 
     <aside id="sidebar" class="sidebar">
         <div class="sidebar-header">

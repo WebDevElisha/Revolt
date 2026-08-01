@@ -34,6 +34,7 @@ sidebarClose.addEventListener('click', () => {
 });
 
 const tabBar = document.getElementById('tab-bar');
+const addTabBtn = document.getElementById('add-tab-btn');
 const homeView = document.getElementById('home-view');
 const viewport = document.getElementById('viewport');
 const searchForm = document.getElementById('search-form');
@@ -121,6 +122,10 @@ function createTab(url = '') {
     setActiveTab(tabId);
 }
 
+addTabBtn.addEventListener('click', () => {
+    createTab('');
+});
+
 tabBar.addEventListener('click', (e) => {
     const tabEl = e.target.closest('.tab');
     if (!tabEl) return;
@@ -137,7 +142,7 @@ function loadUrlInActiveTab(targetUrl) {
     let finalUrl = targetUrl.trim();
     if (!finalUrl) return;
 
-    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://') && !finalUrl.endsWith('.html')) {
+    if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://') && !finalUrl.endsWith('.html') && !finalUrl.startsWith('html/')) {
         if (finalUrl.includes('.') && !finalUrl.includes(' ')) {
             finalUrl = 'https://' + finalUrl;
         } else {
@@ -158,14 +163,12 @@ searchForm.addEventListener('submit', (e) => {
     loadUrlInActiveTab(searchInput.value);
 });
 
-document.querySelectorAll('.app-item').forEach(item => {
-    item.addEventListener('click', () => {
-        const appName = item.querySelector('.app-name').textContent.trim();
-        if (appName === 'AI') {
-            loadUrlInActiveTab('html/AI.html');
-        }
-    });
-});
+document.getElementById('nav-ai').addEventListener('click', () => loadUrlInActiveTab('html/AI.html'));
+document.getElementById('nav-chat').addEventListener('click', () => loadUrlInActiveTab('html/Chat.html'));
+document.getElementById('nav-games').addEventListener('click', () => loadUrlInActiveTab('html/Games.html'));
+document.getElementById('nav-apps').addEventListener('click', () => loadUrlInActiveTab('html/Apps.html'));
+document.getElementById('nav-watch').addEventListener('click', () => loadUrlInActiveTab('html/Watch.html'));
+document.getElementById('nav-music').addEventListener('click', () => loadUrlInActiveTab('html/Music.html'));
 
 document.getElementById('btn-home').addEventListener('click', () => {
     if (activeTabId) {

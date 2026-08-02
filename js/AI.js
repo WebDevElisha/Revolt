@@ -163,6 +163,8 @@ inputForm.addEventListener('submit', async (e) => {
 
     addMessageToActiveChat('Thinking...', 'ai-msg');
 
+    const fallbackErrorMessage = "Revolt AI is having some trouble right now, talk to the owner of Revolt to fix it";
+
     try {
         const response = await fetch('/api/chat', {
             method: 'POST',
@@ -174,7 +176,7 @@ inputForm.addEventListener('submit', async (e) => {
 
         const contentType = response.headers.get('content-type') || '';
         if (!contentType.includes('application/json')) {
-            throw new Error(`Server returned status ${response.status} (non-JSON response).`);
+            throw new Error('Server returned non-JSON response');
         }
 
         const data = await response.json();
@@ -184,14 +186,14 @@ inputForm.addEventListener('submit', async (e) => {
             if (response.ok) {
                 activeChat.messages[activeChat.messages.length - 1].text = data.reply;
             } else {
-                activeChat.messages[activeChat.messages.length - 1].text = `Error: ${data.error || 'Failed to fetch response.'}`;
+                activeChat.messages[activeChat.messages.length - 1].text = fallbackErrorMessage;
             }
             renderMessages();
         }
     } catch (err) {
         const activeChat = chats.find(c => c.id === activeChatId);
         if (activeChat && activeChat.messages.length) {
-            activeChat.messages[activeChat.messages.length - 1].text = `Request Error: ${err.message}`;
+            activeChat.messages[activeChat.messages.length - 1].text = fallbackErrorMessage;
             renderMessages();
         }
     }

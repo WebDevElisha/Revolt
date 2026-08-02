@@ -273,3 +273,90 @@ body {
     width: 18px;
     height: 18px;
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-content {
+    background-color: #050505;
+    border: 2px solid #ff0000;
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.modal-title {
+    color: #ff0000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.modal-input {
+    background-color: transparent;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    border-radius: 8px;
+    color: #ff0000;
+    padding: 8px 12px;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.modal-input:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background-color: transparent;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.cancel-btn:hover {
+    background-color: rgba(255, 0, 0, 0.15);
+}
+
+.confirm-btn {
+    background-color: #ff0000;
+    color: #000000;
+}
+
+.confirm-btn:hover {
+    background-color: #cc0000;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+}

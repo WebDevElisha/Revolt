@@ -6,8 +6,14 @@ const userInput = document.getElementById('ai-user-input');
 const btnNewChat = document.getElementById('btn-new-chat');
 const savedChatsList = document.getElementById('saved-chats-list');
 
+const renameModal = document.getElementById('rename-modal');
+const renameInput = document.getElementById('rename-input');
+const btnCancelRename = document.getElementById('btn-cancel-rename');
+const btnConfirmRename = document.getElementById('btn-confirm-rename');
+
 let chats = [];
 let activeChatId = null;
+let chatToRenameId = null;
 
 function init() {
     createNewChat('Current Chat');
@@ -51,17 +57,38 @@ function deleteChat(id, e) {
     }
 }
 
-function renameChat(id, e) {
+function openRenameModal(id, e) {
     e.stopPropagation();
     const chat = chats.find(c => c.id === id);
     if (!chat) return;
 
-    const newTitle = prompt('Enter new chat name:', chat.title);
-    if (newTitle && newTitle.trim()) {
-        chat.title = newTitle.trim();
-        renderChatList();
-    }
+    chatToRenameId = id;
+    renameInput.value = chat.title;
+    renameModal.classList.remove('hidden');
+    renameInput.focus();
 }
+
+function closeRenameModal() {
+    renameModal.classList.add('hidden');
+    chatToRenameId = null;
+    renameInput.value = '';
+}
+
+btnCancelRename.addEventListener('click', closeRenameModal);
+
+btnConfirmRename.addEventListener('click', () => {
+    if (!chatToRenameId) return;
+    const newTitle = renameInput.value.trim();
+    
+    if (newTitle) {
+        const chat = chats.find(c => c.id === chatToRenameId);
+        if (chat) {
+            chat.title = newTitle;
+            renderChatList();
+        }
+    }
+    closeRenameModal();
+});
 
 function renderChatList() {
     savedChatsList.innerHTML = '';
@@ -90,7 +117,7 @@ function renderChatList() {
         const renameBtn = item.querySelector('.btn-rename');
         const deleteBtn = item.querySelector('.btn-delete');
 
-        renameBtn.addEventListener('click', (e) => renameChat(chat.id, e));
+        renameBtn.addEventListener('click', (e) => openRenameModal(chat.id, e));
         deleteBtn.addEventListener('click', (e) => deleteChat(chat.id, e));
 
         savedChatsList.appendChild(item);
@@ -147,7 +174,6 @@ inputForm.addEventListener('submit', async (e) => {
 
         const contentType = response.headers.get('content-type') || '';
         if (!contentType.includes('application/json')) {
-            const rawText = await response.text();
             throw new Error(`Server returned status ${response.status} (non-JSON response).`);
         }
 

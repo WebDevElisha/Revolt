@@ -137,15 +137,19 @@ inputForm.addEventListener('submit', async (e) => {
     addMessageToActiveChat('Thinking...', 'ai-msg');
 
     try {
-        const apiUrl = `${window.location.origin}/api/chat`;
-
-        const response = await fetch(apiUrl, {
+        const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ prompt: text })
         });
+
+        const contentType = response.headers.get('content-type') || '';
+        if (!contentType.includes('application/json')) {
+            const rawText = await response.text();
+            throw new Error(`Server returned status ${response.status} (non-JSON response).`);
+        }
 
         const data = await response.json();
 
@@ -161,7 +165,7 @@ inputForm.addEventListener('submit', async (e) => {
     } catch (err) {
         const activeChat = chats.find(c => c.id === activeChatId);
         if (activeChat && activeChat.messages.length) {
-            activeChat.messages[activeChat.messages.length - 1].text = `Network Error: ${err.message}`;
+            activeChat.messages[activeChat.messages.length - 1].text = `Request Error: ${err.message}`;
             renderMessages();
         }
     }

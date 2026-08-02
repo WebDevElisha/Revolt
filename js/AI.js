@@ -137,7 +137,9 @@ inputForm.addEventListener('submit', async (e) => {
     addMessageToActiveChat('Thinking...', 'ai-msg');
 
     try {
-        const response = await fetch('/api/chat', {
+        const apiUrl = `${window.location.origin}/api/chat`;
+
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -159,7 +161,7 @@ inputForm.addEventListener('submit', async (e) => {
     } catch (err) {
         const activeChat = chats.find(c => c.id === activeChatId);
         if (activeChat && activeChat.messages.length) {
-            activeChat.messages[activeChat.messages.length - 1].text = 'Error connecting to Vercel API endpoint.';
+            activeChat.messages[activeChat.messages.length - 1].text = `Network Error: ${err.message}`;
             renderMessages();
         }
     }

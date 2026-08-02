@@ -1,4 +1,4 @@
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-        return res.status(500).json({ error: 'GEMINI_API_KEY environment variable is missing on Vercel.' });
+        return res.status(500).json({ error: 'Missing API Key' });
     }
 
     try {
@@ -39,12 +39,12 @@ module.exports = async (req, res) => {
         const data = await response.json();
 
         if (!response.ok) {
-            return res.status(response.status).json({ error: data.error?.message || 'Gemini API Error' });
+            return res.status(response.status).json({ error: data.error?.message || 'API Error' });
         }
 
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated.';
         return res.status(200).json({ reply });
     } catch (err) {
-        return res.status(500).json({ error: 'Server error handling AI request.' });
+        return res.status(500).json({ error: 'Server error' });
     }
-};
+}

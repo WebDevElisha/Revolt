@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revolt Talk</title>
+    <link rel="stylesheet" href="../css/talk.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="auth-container" class="container auth-layout">
+        <div class="auth-box">
+            <h1 class="revolt-title">REVOLT</h1>
+            <p class="auth-subtitle">Join the Network</p>
+            
+            <form id="auth-form">
+                <input type="text" id="username-input" placeholder="Username" required autocomplete="off">
+                <input type="email" id="email-input" placeholder="Email" required autocomplete="off">
+                <input type="password" id="password-input" placeholder="Password" required>
+                
+                <label class="file-upload-label">
+                    <i data-lucide="upload-cloud"></i>
+                    <span>Upload Profile Picture</span>
+                    <input type="file" id="pfp-input" accept="image/*" required>
+                </label>
+                
+                <button type="submit" id="auth-btn">Enter</button>
+            </form>
+            <p id="auth-error" class="error-msg"></p>
+        </div>
+    </div>
+
+    <div id="app-container" class="container app-layout hidden">
+        <aside class="sidebar left-sidebar">
+            <div class="sidebar-header">
+                <h2>Rooms</h2>
+            </div>
+            <div class="room-list">
+                <div class="room-item active" data-room="Revolt room 1">Revolt room 1</div>
+                <div class="room-item" data-room="Revolt room 2">Revolt room 2</div>
+                <div class="room-item" data-room="Revolt room 3">Revolt room 3</div>
+            </div>
+            <div class="current-user-profile">
+                <img id="my-pfp" src="" alt="Profile">
+                <span id="my-username"></span>
+                <button id="logout-btn"><i data-lucide="log-out"></i></button>
+            </div>
+        </aside>
+
+        <main class="chat-area">
+            <div class="chat-header">
+                <h2 id="current-room-name">Revolt room 1</h2>
+            </div>
+            <div id="chat-messages" class="messages-container"></div>
+            <form id="chat-form" class="chat-input-wrapper">
+                <input type="text" id="chat-input" placeholder="Transmit message..." required autocomplete="off">
+                <button type="submit"><i data-lucide="send"></i></button>
+            </form>
+        </main>
+
+        <aside class="sidebar right-sidebar">
+            <div class="sidebar-header">
+                <h2>Active Users</h2>
+            </div>
+            <div id="online-users-list" class="users-list"></div>
+        </aside>
+    </div>
+
+    <script type="module" src="../js/talk.js"></script>
+</body>
+</html>

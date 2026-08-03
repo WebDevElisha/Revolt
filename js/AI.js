@@ -15,7 +15,24 @@ let chats = [];
 let activeChatId = null;
 let chatToRenameId = null;
 
+function saveChats() {
+    localStorage.setItem('revolt_ai_chats', JSON.stringify(chats));
+    localStorage.setItem('revolt_ai_active', activeChatId);
+}
+
 function init() {
+    const storedChats = localStorage.getItem('revolt_ai_chats');
+    const storedActive = localStorage.getItem('revolt_ai_active');
+
+    if (storedChats) {
+        chats = JSON.parse(storedChats);
+        if (chats.length > 0) {
+            activeChatId = storedActive && chats.find(c => c.id === storedActive) ? storedActive : chats[0].id;
+            renderChatList();
+            renderMessages();
+            return;
+        }
+    }
     createNewChat('Current Chat');
 }
 
@@ -38,6 +55,7 @@ function createNewChat(title = null) {
 
 function switchChat(id) {
     activeChatId = id;
+    saveChats();
     renderChatList();
     renderMessages();
 }
@@ -52,6 +70,7 @@ function deleteChat(id, e) {
         if (activeChatId === id) {
             switchChat(chats[chats.length - 1].id);
         } else {
+            saveChats();
             renderChatList();
         }
     }
@@ -84,6 +103,7 @@ btnConfirmRename.addEventListener('click', () => {
         const chat = chats.find(c => c.id === chatToRenameId);
         if (chat) {
             chat.title = newTitle;
+            saveChats();
             renderChatList();
         }
     }
@@ -150,6 +170,7 @@ function addMessageToActiveChat(text, type) {
     if (!activeChat) return null;
 
     activeChat.messages.push({ type, text });
+    saveChats();
     renderMessages();
 }
 
@@ -188,12 +209,14 @@ inputForm.addEventListener('submit', async (e) => {
             } else {
                 activeChat.messages[activeChat.messages.length - 1].text = fallbackErrorMessage;
             }
+            saveChats();
             renderMessages();
         }
     } catch (err) {
         const activeChat = chats.find(c => c.id === activeChatId);
         if (activeChat && activeChat.messages.length) {
             activeChat.messages[activeChat.messages.length - 1].text = fallbackErrorMessage;
+            saveChats();
             renderMessages();
         }
     }

@@ -187,7 +187,7 @@ inputForm.addEventListener('submit', async (e) => {
     const fallbackErrorMessage = "Revolt AI is having some trouble right now, talk to the owner of Revolt to fix it";
 
     try {
-        const response = await fetch('/api/chat', {
+        const response = await fetch('https://revolt-ai-backend.vercel.app/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -6,7 +6,7 @@
     <title>Talk - REVOLT</title>
     <style>
         body {
-            background-color: #121212;
+            background-color: #0a0a0a;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -16,22 +16,23 @@
             margin: 0;
         }
         #auth-section {
-            background-color: #1e1e1e;
+            background-color: #141414;
             padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            border: 1px solid #ff0033;
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.2);
             text-align: center;
             width: 320px;
         }
         h1 {
-            color: #ff3366;
+            color: #ff0033;
             margin-top: 0;
             font-size: 1.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
         p {
-            color: #aaaaaa;
+            color: #888888;
             margin-bottom: 20px;
             font-size: 0.9rem;
         }
@@ -40,42 +41,55 @@
             padding: 12px;
             margin: 8px 0 15px 0;
             border: 1px solid #333;
-            border-radius: 6px;
-            background-color: #2a2a2a;
+            border-radius: 4px;
+            background-color: #1e1e1e;
             color: white;
             box-sizing: border-box;
             outline: none;
+            transition: border-color 0.3s;
         }
         input:focus {
-            border-color: #ff3366;
+            border-color: #ff0033;
         }
         button {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.3s;
+            background-color: #ff0033;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         button:hover {
-            opacity: 0.8;
+            background-color: #cc0029;
+            box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
         }
-        #login-btn {
-            background-color: #4CAF50;
-            color: white;
+        .toggle-text {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #aaaaaa;
         }
-        #signup-btn {
-            background-color: #2196F3;
-            color: white;
+        .toggle-text span {
+            color: #ff0033;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .toggle-text span:hover {
+            text-decoration: underline;
         }
         #chat-section {
             display: none;
             width: 100%;
             height: 100%;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .hidden {
             display: none !important;
@@ -83,19 +97,27 @@
     </style>
 </head>
 <body>
+
     <div id="auth-section">
         <h1>Join the REVOLT!</h1>
-        <p>Sign in or create an account to start chatting.</p>
-        <input type="text" id="username-input" placeholder="Username (for Sign Up)" required>
+        <p id="auth-subtitle">Sign in to your existing account.</p>
+        
+        <input type="text" id="username-input" placeholder="Username" class="hidden">
         <input type="email" id="email-input" placeholder="Email address" required>
         <input type="password" id="password-input" placeholder="Password" required>
-        <button id="login-btn">Log In</button>
-        <button id="signup-btn">Sign Up</button>
+        
+        <button id="main-auth-btn">Log In</button>
+        
+        <div class="toggle-text" id="toggle-auth-mode">
+            Need an account? <span>Sign Up</span>
+        </div>
     </div>
+
     <div id="chat-section">
-        <h2>Welcome to the Chat</h2>
-        <button id="logout-btn" style="width: auto; padding: 10px; background: #f44336;">Log Out</button>
+        <h2 style="color: #ff0033;">Welcome to the Chat</h2>
+        <button id="logout-btn" style="width: auto; padding: 10px 20px;">Log Out</button>
     </div>
+
     <script type="module" src="../js/talk.js"></script>
 </body>
 </html>

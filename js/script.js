@@ -151,7 +151,8 @@ function loadUrlInActiveTab(targetUrl) {
     }
 
     if (finalUrl.startsWith('html/') && !finalUrl.includes('loading.html')) {
-        finalUrl = `html/loading.html?target=${encodeURIComponent(finalUrl)}`;
+        const fileOnly = finalUrl.replace('html/', '');
+        finalUrl = `html/loading.html?target=${encodeURIComponent(fileOnly)}`;
     }
 
     if (!activeTabId) {
@@ -207,7 +208,11 @@ document.getElementById('btn-fullscreen').addEventListener('click', () => {
 
 document.getElementById('btn-reload').addEventListener('click', () => {
     if (activeTabId && tabData[activeTabId].url) {
-        viewport.src = tabData[activeTabId].url;
+        const currentUrl = tabData[activeTabId].url;
+        viewport.src = 'about:blank';
+        setTimeout(() => {
+            viewport.src = currentUrl;
+        }, 50);
     } else {
         window.location.reload();
     }

@@ -164,7 +164,7 @@ searchForm.addEventListener('submit', (e) => {
 });
 
 document.getElementById('nav-ai').addEventListener('click', () => loadUrlInActiveTab('html/AI.html'));
-document.getElementById('nav-chat').addEventListener('click', () => loadUrlInActiveTab('html/Chat.html'));
+document.getElementById('nav-chat').addEventListener('click', () => loadUrlInActiveTab('html/talk.html'));
 document.getElementById('nav-games').addEventListener('click', () => loadUrlInActiveTab('html/Games.html'));
 document.getElementById('nav-apps').addEventListener('click', () => loadUrlInActiveTab('html/Apps.html'));
 document.getElementById('nav-watch').addEventListener('click', () => loadUrlInActiveTab('html/Watch.html'));

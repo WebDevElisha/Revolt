@@ -20,39 +20,48 @@ const chatSection = document.getElementById('chat-section');
 const usernameInput = document.getElementById('username-input');
 const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
-const loginBtn = document.getElementById('login-btn');
-const signupBtn = document.getElementById('signup-btn');
+const mainAuthBtn = document.getElementById('main-auth-btn');
+const authSubtitle = document.getElementById('auth-subtitle');
+const toggleAuthMode = document.getElementById('toggle-auth-mode');
 const logoutBtn = document.getElementById('logout-btn');
 
-signupBtn.addEventListener('click', () => {
-    const email = emailInput.value;
-    const password = passwordInput.value;
-    const username = usernameInput.value;
+let isLoginMode = true;
 
-    if (!username) {
-        alert("Please enter a username to sign up.");
-        return;
+toggleAuthMode.addEventListener('click', () => {
+    isLoginMode = !isLoginMode;
+    
+    if (isLoginMode) {
+        authSubtitle.textContent = "Sign in to your existing account.";
+        usernameInput.classList.add('hidden');
+        mainAuthBtn.textContent = "Log In";
+        toggleAuthMode.innerHTML = 'Need an account? <span>Sign Up</span>';
+    } else {
+        authSubtitle.textContent = "Create an account to get started.";
+        usernameInput.classList.remove('hidden');
+        mainAuthBtn.textContent = "Sign Up";
+        toggleAuthMode.innerHTML = 'Already have an account? <span>Log In</span>';
     }
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            updateProfile(userCredential.user, {
-                displayName: username
-            });
-        })
-        .catch((error) => {
-            alert(error.message);
-        });
 });
 
-loginBtn.addEventListener('click', () => {
+mainAuthBtn.addEventListener('click', () => {
     const email = emailInput.value;
     const password = passwordInput.value;
 
-    signInWithEmailAndPassword(auth, email, password)
-        .catch((error) => {
-            alert(error.message);
-        });
+    if (isLoginMode) {
+        signInWithEmailAndPassword(auth, email, password)
+            .catch((error) => alert(error.message));
+    } else {
+        const username = usernameInput.value;
+        if (!username) {
+            alert("Please enter a username.");
+            return;
+        }
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                updateProfile(userCredential.user, { displayName: username });
+            })
+            .catch((error) => alert(error.message));
+    }
 });
 
 logoutBtn.addEventListener('click', () => {
@@ -69,5 +78,11 @@ onAuthStateChanged(auth, (user) => {
         emailInput.value = '';
         passwordInput.value = '';
         usernameInput.value = '';
+        
+        isLoginMode = true;
+        authSubtitle.textContent = "Sign in to your existing account.";
+        usernameInput.classList.add('hidden');
+        mainAuthBtn.textContent = "Log In";
+        toggleAuthMode.innerHTML = 'Need an account? <span>Sign Up</span>';
     }
 });

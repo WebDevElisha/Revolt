@@ -143,18 +143,21 @@ function stopChat() {
 }
 
 sendBtn.addEventListener('click', async () => {
-    const text = messageInput.value.trim();
+    let text = messageInput.value.trim();
+    if (text.length > 250) {
+        text = text.substring(0, 250);
+    }
     if (text && auth.currentUser) {
         try {
             await addDoc(collection(db, "messages"), {
                 text: text,
-                sender: auth.currentUser.displayName || emailInput.value.split('@')[0],
+                sender: auth.currentUser.displayName || auth.currentUser.email.split('@')[0],
                 uid: auth.currentUser.uid,
                 timestamp: serverTimestamp()
             });
             messageInput.value = '';
         } catch (error) {
-            console.error("Error sending message: ", error);
+            console.error(error);
         }
     }
 });

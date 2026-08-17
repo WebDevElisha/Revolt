@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talk - REVOLT</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
             background-color: #000000;
@@ -17,10 +18,25 @@
             overflow: hidden;
         }
 
+        #auth-check-loader {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff0000;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         #auth-section {
+            display: none; 
             background-color: #0a0a0a;
             padding: 2.5rem;
-            border-radius: 8px;
+            border-radius: 16px; 
             border: 1px solid #ff0000;
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
             text-align: center;
@@ -51,7 +67,7 @@
             padding: 12px;
             margin: 8px 0 15px 0;
             border: 1px solid #333;
-            border-radius: 4px;
+            border-radius: 8px; 
             background-color: #111;
             color: white;
             box-sizing: border-box;
@@ -74,7 +90,7 @@
             padding: 12px;
             margin: 8px 0;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px; 
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
@@ -111,8 +127,8 @@
 
         #chat-section {
             display: none;
-            width: 98vw;
-            height: 96vh;
+            width: 96vw;
+            height: 94vh;
             flex-direction: column;
             gap: 15px;
         }
@@ -121,9 +137,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 15px 25px;
             border: 1px solid #ff0000;
-            border-radius: 8px;
+            border-radius: 16px; 
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
             background-color: #050505;
             transition: box-shadow 0.3s;
@@ -142,7 +158,7 @@
         .header h2 {
             color: #ff0000;
             margin: 0;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             letter-spacing: 2px;
         }
 
@@ -150,8 +166,8 @@
             background: none;
             border: 1px solid #ff0000;
             color: #ff0000;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 8px 18px;
+            border-radius: 8px; 
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
@@ -173,7 +189,7 @@
 
         .panel {
             border: 1px solid #ff0000;
-            border-radius: 8px;
+            border-radius: 16px; 
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
             background-color: #050505;
             display: flex;
@@ -191,37 +207,42 @@
             margin-top: 0;
             margin-bottom: 15px;
             border-bottom: 1px solid #330000;
-            padding-bottom: 5px;
+            padding-bottom: 8px;
         }
 
         .rooms-panel {
-            width: 200px;
+            width: 220px;
         }
 
         .room-item {
             color: #888;
-            padding: 10px 15px;
+            padding: 12px 15px;
             cursor: pointer;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            border-radius: 8px; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
         .room-item:hover:not(.active) {
-            background-color: #110000;
+            background-color: #1a0505;
             color: #ff4d4d;
-            padding-left: 20px;
+            padding-left: 25px;
+            box-shadow: inset 2px 0 0 #ff0000;
         }
 
         .room-item.active {
             color: #ff0000;
             background-color: #1a0000;
-            border-left: 3px solid #ff0000;
+            border-left: 4px solid #ff0000;
+            font-weight: bold;
         }
 
         .chat-panel {
             flex: 1;
             padding: 0;
+            overflow: hidden;
         }
 
         #messages-container {
@@ -234,9 +255,9 @@
         }
 
         .message {
-            max-width: 60%;
-            padding: 10px 15px;
-            border-radius: 8px;
+            max-width: 65%;
+            padding: 12px 18px;
+            border-radius: 16px; 
             border: 1px solid #ff0000;
             box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
             background-color: #111;
@@ -251,11 +272,14 @@
         .message.me {
             align-self: flex-end;
             border-color: #ff0000;
+            border-bottom-right-radius: 4px; 
+            background-color: #1a0505;
         }
 
         .message.other {
             align-self: flex-start;
-            border-color: #ff0000;
+            border-color: #550000;
+            border-bottom-left-radius: 4px; 
         }
 
         .message .sender {
@@ -269,6 +293,7 @@
             color: #ddd;
             font-size: 0.95rem;
             word-wrap: break-word;
+            line-height: 1.4;
         }
 
         .input-container {
@@ -276,20 +301,21 @@
             padding: 15px;
             border-top: 1px solid #ff0000;
             gap: 10px;
-            background-color: #050505;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+            background-color: #0a0a0a;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
         }
 
         #message-input {
             flex: 1;
-            padding: 12px 15px;
+            padding: 12px 18px;
             border: 1px solid #550000;
-            border-radius: 4px;
+            border-radius: 12px; 
             background-color: #000;
             color: white;
             outline: none;
             transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
         }
 
         #message-input:hover {
@@ -302,13 +328,16 @@
         }
 
         #send-btn {
-            padding: 0 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
             background-color: #ff0000;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 12px; 
             cursor: pointer;
-            font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
@@ -336,7 +365,7 @@
             align-items: center;
             gap: 10px;
             padding: 8px 10px;
-            border-radius: 4px;
+            border-radius: 8px; 
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -348,11 +377,11 @@
         }
 
         .user-status {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background-color: #00ff00;
-            box-shadow: 0 0 5px #00ff00;
+            box-shadow: 0 0 8px #00ff00;
         }
 
         .hidden {
@@ -364,6 +393,7 @@
         }
         ::-webkit-scrollbar-track {
             background: #000; 
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb {
             background: #550000; 
@@ -376,6 +406,10 @@
     </style>
 </head>
 <body>
+
+    <div id="auth-check-loader">
+        Initializing...
+    </div>
 
     <div id="auth-section">
         <h1>Join the REVOLT!</h1>
@@ -412,7 +446,7 @@
                 <div id="messages-container"></div>
                 <div class="input-container">
                     <input type="text" id="message-input" placeholder="Type a message..." maxlength="250">
-                    <button id="send-btn">Send</button>
+                    <button id="send-btn"><i data-lucide="corner-down-left"></i></button>
                 </div>
             </div>
             
@@ -425,5 +459,8 @@
     </div>
 
     <script type="module" src="../js/talk.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

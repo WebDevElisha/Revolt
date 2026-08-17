@@ -15,6 +15,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const authCheckLoader = document.getElementById('auth-check-loader');
 const authSection = document.getElementById('auth-section');
 const chatSection = document.getElementById('chat-section');
 const usernameInput = document.getElementById('username-input');
@@ -164,13 +165,16 @@ sendBtn.addEventListener('click', async () => {
 
 messageInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
+        e.preventDefault(); 
         sendBtn.click();
     }
 });
 
 onAuthStateChanged(auth, async (user) => {
+    if (authCheckLoader) authCheckLoader.style.display = 'none';
+
     if (user) {
-        authSection.classList.add('hidden');
+        authSection.style.display = 'none';
         chatSection.style.display = 'flex';
         
         await setDoc(doc(db, "online_users", user.uid), {
@@ -179,8 +183,9 @@ onAuthStateChanged(auth, async (user) => {
         
         initChat();
     } else {
-        authSection.classList.remove('hidden');
+        authSection.style.display = 'block';
         chatSection.style.display = 'none';
+        
         emailInput.value = '';
         passwordInput.value = '';
         usernameInput.value = '';

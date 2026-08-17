@@ -225,26 +225,17 @@ body {
     background-color: #000000;
 }
 
+/* Updated Logo Styling! */
 .revolt-brand {
-    display: flex;
-    align-items: baseline;
-    user-select: none;
-}
-
-.brand-big-r {
-    font-size: 6rem;
+    font-size: 4.5rem;
     font-weight: 900;
     color: #ff0000;
-    text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-    line-height: 1;
-}
-
-.brand-rest {
-    font-size: 3.5rem;
-    font-weight: bold;
-    color: #ff0000;
-    text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4);
+    letter-spacing: 4px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-container {

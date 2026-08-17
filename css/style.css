@@ -225,13 +225,14 @@ body {
     background-color: #000000;
 }
 
-/* Updated Logo Styling! */
 .revolt-brand {
-    font-size: 4.5rem;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-size: 7rem;
     font-weight: 900;
     color: #ff0000;
+    text-transform: uppercase;
     text-shadow: 0 0 15px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4);
-    letter-spacing: 4px;
+    letter-spacing: 8px;
     user-select: none;
     display: flex;
     align-items: center;

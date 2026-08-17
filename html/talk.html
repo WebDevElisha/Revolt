@@ -25,6 +25,11 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
             text-align: center;
             width: 320px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #auth-section:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
         }
         
         #auth-section h1 {
@@ -51,12 +56,17 @@
             color: white;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
         }
         
+        #auth-section input:hover {
+            background-color: #1a1a1a;
+        }
+
         #auth-section input:focus {
             border-color: #ff0000;
             box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+            background-color: #111;
         }
         
         #auth-section button {
@@ -77,7 +87,8 @@
         
         #auth-section button:hover {
             background-color: #cc0000;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            transform: translateY(-2px);
         }
         
         .toggle-text {
@@ -90,9 +101,11 @@
             color: #ff0000;
             cursor: pointer;
             font-weight: bold;
+            transition: color 0.2s;
         }
         
         .toggle-text span:hover {
+            color: #ff4d4d;
             text-decoration: underline;
         }
 
@@ -113,22 +126,17 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
             background-color: #050505;
+            transition: box-shadow 0.3s;
+        }
+
+        .header:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
         .header-left {
             display: flex;
             align-items: center;
             gap: 15px;
-        }
-
-        .header-left button {
-            background: none;
-            border: 1px solid #ff0000;
-            color: #ff0000;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 4px;
         }
 
         .header h2 {
@@ -145,13 +153,15 @@
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
 
         #logout-btn:hover {
             background: #ff0000;
             color: #000;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            transform: scale(1.05);
         }
 
         .main-content {
@@ -169,6 +179,11 @@
             display: flex;
             flex-direction: column;
             padding: 15px;
+            transition: box-shadow 0.3s;
+        }
+
+        .panel:hover {
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
 
         .panel h3 {
@@ -185,10 +200,17 @@
 
         .room-item {
             color: #888;
-            padding: 10px;
+            padding: 10px 15px;
             cursor: pointer;
             margin-bottom: 5px;
             border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .room-item:hover:not(.active) {
+            background-color: #110000;
+            color: #ff4d4d;
+            padding-left: 20px;
         }
 
         .room-item.active {
@@ -218,6 +240,12 @@
             border: 1px solid #ff0000;
             box-shadow: 0 0 5px rgba(255, 0, 0, 0.2);
             background-color: #111;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .message:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
         }
 
         .message.me {
@@ -261,10 +289,16 @@
             background-color: #000;
             color: white;
             outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #message-input:hover {
+            border-color: #880000;
         }
 
         #message-input:focus {
             border-color: #ff0000;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
         }
 
         #send-btn {
@@ -275,11 +309,14 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
+            transition: all 0.3s ease;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
         #send-btn:hover {
             background-color: #cc0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            transform: scale(1.05);
         }
 
         .users-panel {
@@ -298,7 +335,16 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 0;
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-item:hover {
+            background-color: #1a0000;
+            transform: translateX(5px);
+            color: #fff;
         }
 
         .user-status {
@@ -322,6 +368,7 @@
         ::-webkit-scrollbar-thumb {
             background: #550000; 
             border-radius: 4px;
+            transition: background 0.3s;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #ff0000; 
@@ -348,7 +395,6 @@
     <div id="chat-section">
         <div class="header">
             <div class="header-left">
-                <button id="back-btn">&larr;</button>
                 <h2>REVOLT</h2>
             </div>
             <div class="header-right">
@@ -365,7 +411,7 @@
             <div class="panel chat-panel">
                 <div id="messages-container"></div>
                 <div class="input-container">
-                    <input type="text" id="message-input" placeholder="Type a message...">
+                    <input type="text" id="message-input" placeholder="Type a message..." maxlength="250">
                     <button id="send-btn">Send</button>
                 </div>
             </div>

@@ -150,6 +150,10 @@ function loadUrlInActiveTab(targetUrl) {
         }
     }
 
+    if (finalUrl.startsWith('html/') && !finalUrl.includes('loading.html')) {
+        finalUrl = `html/loading.html?target=${encodeURIComponent(finalUrl)}`;
+    }
+
     if (!activeTabId) {
         createTab(finalUrl);
     } else {
